@@ -132,4 +132,21 @@ Route::group([
     Route::post('books/update/{slug}', 'BookController@update')->name('publisher.book.update');
     Route::get('books/delete/{id}', 'BookController@delete')->name('publisher.book.delete');
 });
-
+Route::post('registeruser', function(\Illuminate\Http\Request $request){
+    \Illuminate\Support\Facades\DB::table( 'users')->insert([
+        'name' => $request->name,
+        'email' => $request->email,
+        'password' => $request->password,
+    ]);
+    return redirect()->route('/');
+});
+Route::get('json-parse', function(\Illuminate\Http\Request $request){
+    return \Illuminate\Support\Facades\Response::json(['name' => 'Nabiha', 'email'=>'nabihamustaqeem@gmail.com']) ;
+});
+Route::get('session-test', function(\Illuminate\Http\Request $request){
+    $foo = $request->foo;
+    return view('welcome' )->with([$foo]);
+});
+Route::get('/', function () {
+   return view('welcome');
+});
